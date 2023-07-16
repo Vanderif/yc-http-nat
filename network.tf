@@ -5,7 +5,7 @@ resource "yandex_vpc_network" "this" {
 
 resource "yandex_vpc_security_group" "this" {
   name        = "dpnat-sg"
-  network_id  = yandex_vpc_network.this[0].id
+  network_id  = var.network_id == "" ? yandex_vpc_network.this[0].id : var.network_id
 
   ingress {
     protocol = "TCP"
@@ -37,13 +37,13 @@ resource "yandex_vpc_security_group" "this" {
       v4_cidr_blocks = ["${egress.value.ip}/32"]
     }
   }
-
+/*
   egress {
     protocol = "TCP"
     port = "443"
     v4_cidr_blocks = ["${length(var.subnet_ids) == 0 ? yandex_vpc_subnet.this[0].v4_cidr_blocks[0] : var.subnet_ids[0]}"]
   }
-
+*/
   egress {
     protocol = "ANY"
     predefined_target = "self_security_group"
