@@ -32,6 +32,7 @@ variable "network_id" {
   default     = ""
 }
 
+# Подсети необходимо указывать в порядке, соотвтетственно порядку AZ в переменной yc_availability_zones
 variable "subnet_ids" {
   type        = list(string)
   description = "List of subnet IDs where nat vms should be created. Default create new subnets, one in every az"

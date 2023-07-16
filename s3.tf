@@ -5,7 +5,7 @@ resource "yandex_iam_service_account" "this" {
 resource "yandex_resourcemanager_folder_iam_member" "s3editor" {
     role = "storage.editor"
     member = "serviceAccount:${yandex_iam_service_account.this.id}"
-    folder_id = yandex_vpc_network.this[0].folder_id
+    folder_id = yandex_iam_service_account.this.folder_id
 }
 
 resource "yandex_iam_service_account_static_access_key" "this" {
