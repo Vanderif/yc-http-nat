@@ -41,20 +41,20 @@ subnet_ids = [
 ]
 ```
 
-#### Вызов терраформа
+### Вызов терраформа
+
+Использование параметра -parallelism=1 является обязательным.
 
 ```bash
 terraform init
 terraform plan
-terraform apply
+terraform apply -parallelism=1
 ```
 
-## Удаляем инфраструктуру
-## Из-за особенности работы NLB с target VM удаление инфраструктуры необходимо запускать несколько раз, по количеству натируемых эндпойнтов
+### Удаляем инфраструктуру
 
 ```bash
-terraform destroy
-terraform destroy
-terraform destroy
-terraform destroy
+terraform destroy -parallelism=1
 ```
+
+В результате работы плейбука будет сформирован и загружен в S3 бакет .sh файл, который необходимо использовать в качестве init скрипта кластеров Data Proc.
